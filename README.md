@@ -1,6 +1,6 @@
 ---
 
-# Laravel Project
+# Book Rental Project
 
 This document provides the installation steps necessary to set up and run the Laravel project on your local machine.
 
