@@ -7,9 +7,9 @@ This document provides the installation steps necessary to set up and run the La
 ## Prerequisites
 
 Before you begin, ensure you have the following installed on your system:
-- Composer
-- PHP >= 7.3
-- A database system (MySQL, PostgreSQL, etc.)
+- Composer 2
+- PHP >= 8,1
+- A database system (MySQL)
 
 ## Installation Steps
 
@@ -95,6 +95,23 @@ Once the installation is complete and the server is running, you can access the 
 ```
 http://localhost:8000
 ```
+
+## Postman collection 
+
+Check the Rental.postman_collection.json file import it to postman collection.
+
+## email 
+
+Configure the smtp setting on the env file with proper credentials.
+
+MAIL_MAILER=smtp
+MAIL_HOST=mailpit
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
 
 ## Troubleshooting
 

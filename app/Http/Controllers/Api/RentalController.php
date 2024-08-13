@@ -22,20 +22,17 @@ class RentalController extends Controller
     public function store(Request $request)
     {
        
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'book_id' => 'required|exists:books,id',
-        ]);
-        if( $validated )
-        $rental = Rental::create([
-            'user_id' => $validated['user_id'],
-            'book_id' => $validated['book_id'],
-            'rented_on' => now(),
-            'due_date' => now()->addWeeks(2),
-        ]);
-        else{
+        if(User::find($request->user_id) || Book::find($request->book_id)){
             return response()->json('Invalid User or Book ', 201);
-        }
+            }
+            else{
+                $rental = Rental::create([
+                    'user_id' => $validated['user_id'],
+                    'book_id' => $validated['book_id'],
+                    'rented_on' => now(),
+                    'due_date' => now()->addWeeks(2),
+                ]);
+            }
 
         return response()->json($rental, 201);
     }
