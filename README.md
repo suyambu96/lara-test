@@ -103,7 +103,7 @@ Check the Rental.postman_collection.json file import it to postman collection.
 ## email 
 
 Configure the smtp setting on the env file with proper credentials.
-
+```bash
 MAIL_MAILER=smtp
 MAIL_HOST=mailpit
 MAIL_PORT=1025
@@ -112,6 +112,7 @@ MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS="hello@example.com"
 MAIL_FROM_NAME="${APP_NAME}"
+```
 
 ## Troubleshooting
 
