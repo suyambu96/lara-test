@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Rental;
+use App\Models\User;  
+use App\Models\Book;
 
 class RentalController extends Controller
 {
@@ -21,20 +23,27 @@ class RentalController extends Controller
      */
     public function store(Request $request)
     {
-       
-        if(User::find($request->user_id) || Book::find($request->book_id)){
-            return response()->json('Invalid User or Book ', 201);
-            }
-            else{
-                $rental = Rental::create([
-                    'user_id' => $validated['user_id'],
-                    'book_id' => $validated['book_id'],
-                    'rented_on' => now(),
-                    'due_date' => now()->addWeeks(2),
-                ]);
-            }
-
-        return response()->json($rental, 201);
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'book_id' => 'required|exists:books,id',
+            // You might want to validate other fields like due_date if applicable
+        ]);
+    
+        $rental = new Rental();
+        $rental->user_id = $validated['user_id'];
+        $rental->book_id = $validated['book_id'];
+        $rental->rented_on = now();  // Assuming 'rented_on' is set at the time of creation
+        $rental->due_date = now()->addWeeks(2);  // Example: setting a due date 2 weeks from now
+        $rental->save();
+    
+        return response()->json([
+            'data' => [
+                'user_id' => $rental->user_id,
+                'book_id' => $rental->book_id,
+                'rented_on' => $rental->rented_on,
+                'due_date' => $rental->due_date
+            ]
+        ], 201);
     }
 
     public function returnBook(Request $request, $id)
